@@ -1,8 +1,3 @@
-/**
- * routes/service.routes.js
- * Endpoint definitions for the services resource.
- * Mounted in app.js under the /api/services base path.
- */
 import express from 'express';
 import {
   getAllServices,
@@ -11,16 +6,18 @@ import {
   updateService,
   deleteService
 } from '../controllers/service.controller.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// Reads are public; writes need a valid token.
 router.route('/')
-  .get(getAllServices)   // GET    api/services
-  .post(addService);     // POST   api/services
+  .get(getAllServices)
+  .post(requireAuth, addService);
 
 router.route('/:id')
-  .get(getServiceById)   // GET    api/services/:id
-  .put(updateService)    // PUT    api/services/:id
-  .delete(deleteService); // DELETE api/services/:id
+  .get(getServiceById)
+  .put(requireAuth, updateService)
+  .delete(requireAuth, deleteService);
 
 export default router;

@@ -1,8 +1,3 @@
-/**
- * routes/reference.routes.js
- * Endpoint definitions for the references resource.
- * Mounted in app.js under the /api/references base path.
- */
 import express from 'express';
 import {
   getAllReferences,
@@ -11,16 +6,18 @@ import {
   updateReference,
   deleteReference
 } from '../controllers/reference.controller.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// Reads are public; writes need a valid token.
 router.route('/')
-  .get(getAllReferences)   // GET    api/references
-  .post(addReference);     // POST   api/references
+  .get(getAllReferences)
+  .post(requireAuth, addReference);
 
 router.route('/:id')
-  .get(getReferenceById)   // GET    api/references/:id
-  .put(updateReference)    // PUT    api/references/:id
-  .delete(deleteReference); // DELETE api/references/:id
+  .get(getReferenceById)
+  .put(requireAuth, updateReference)
+  .delete(requireAuth, deleteReference);
 
 export default router;

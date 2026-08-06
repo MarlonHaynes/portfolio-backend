@@ -1,11 +1,5 @@
-/**
- * controllers/user.controller.js
- * CRUD operations for the users collection.
- * Every handler forwards unexpected errors to the global error handler via next().
- */
 import User from '../models/User.js';
 
-/** GET /api/users — retrieve every user. */
 export const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
@@ -19,7 +13,6 @@ export const getAllUsers = async (req, res, next) => {
   }
 };
 
-/** GET /api/users/:id — retrieve a single user by its identifier. */
 export const getUserById = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
@@ -38,7 +31,6 @@ export const getUserById = async (req, res, next) => {
   }
 };
 
-/** POST /api/users — create a new user. */
 export const addUser = async (req, res, next) => {
   try {
     const user = await User.create({ ...req.body, created: Date.now() });
@@ -52,7 +44,6 @@ export const addUser = async (req, res, next) => {
   }
 };
 
-/** PUT /api/users/:id — update an existing user and stamp the updated date. */
 export const updateUser = async (req, res, next) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(
@@ -71,7 +62,6 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
-/** DELETE /api/users/:id — remove an existing user. */
 export const deleteUser = async (req, res, next) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);

@@ -1,7 +1,3 @@
-/**
- * models/Service.js
- * Mongoose model representing a service offered on the Services page.
- */
 import mongoose from 'mongoose';
 
 const serviceSchema = new mongoose.Schema({
@@ -9,10 +5,7 @@ const serviceSchema = new mongoose.Schema({
   description: { type: String, trim: true }
 });
 
-/**
- * Serialise documents with an "id" attribute instead of the default "_id",
- * as required by the API response specification.
- */
+// Return "id" instead of the default "_id".
 serviceSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,

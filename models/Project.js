@@ -1,7 +1,3 @@
-/**
- * models/Project.js
- * Mongoose model representing a portfolio project entry.
- */
 import mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema({
@@ -11,10 +7,7 @@ const projectSchema = new mongoose.Schema({
   image: { type: String, trim: true }
 });
 
-/**
- * Serialise documents with an "id" attribute instead of the default "_id",
- * as required by the API response specification.
- */
+// Return "id" instead of the default "_id".
 projectSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,

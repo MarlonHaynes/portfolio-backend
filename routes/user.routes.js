@@ -1,8 +1,3 @@
-/**
- * routes/user.routes.js
- * Endpoint definitions for the users resource.
- * Mounted in app.js under the /api/users base path.
- */
 import express from 'express';
 import {
   getAllUsers,
@@ -11,16 +6,18 @@ import {
   updateUser,
   deleteUser
 } from '../controllers/user.controller.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// Reads and sign-up (POST) are public; updates and deletes need a token.
 router.route('/')
-  .get(getAllUsers)   // GET    api/users
-  .post(addUser);     // POST   api/users
+  .get(getAllUsers)
+  .post(addUser);
 
 router.route('/:id')
-  .get(getUserById)   // GET    api/users/:id
-  .put(updateUser)    // PUT    api/users/:id
-  .delete(deleteUser); // DELETE api/users/:id
+  .get(getUserById)
+  .put(requireAuth, updateUser)
+  .delete(requireAuth, deleteUser);
 
 export default router;

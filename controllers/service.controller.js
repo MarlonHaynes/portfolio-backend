@@ -1,11 +1,5 @@
-/**
- * controllers/service.controller.js
- * CRUD operations for the services collection.
- * Every handler forwards unexpected errors to the global error handler via next().
- */
 import Service from '../models/Service.js';
 
-/** GET /api/services — retrieve every service. */
 export const getAllServices = async (req, res, next) => {
   try {
     const services = await Service.find();
@@ -19,7 +13,6 @@ export const getAllServices = async (req, res, next) => {
   }
 };
 
-/** GET /api/services/:id — retrieve a single service by its identifier. */
 export const getServiceById = async (req, res, next) => {
   try {
     const service = await Service.findById(req.params.id);
@@ -38,7 +31,6 @@ export const getServiceById = async (req, res, next) => {
   }
 };
 
-/** POST /api/services — create a new service. */
 export const addService = async (req, res, next) => {
   try {
     const service = await Service.create(req.body);
@@ -52,7 +44,6 @@ export const addService = async (req, res, next) => {
   }
 };
 
-/** PUT /api/services/:id — update an existing service. */
 export const updateService = async (req, res, next) => {
   try {
     const updatedService = await Service.findByIdAndUpdate(
@@ -71,7 +62,6 @@ export const updateService = async (req, res, next) => {
   }
 };
 
-/** DELETE /api/services/:id — remove an existing service. */
 export const deleteService = async (req, res, next) => {
   try {
     const deletedService = await Service.findByIdAndDelete(req.params.id);

@@ -1,8 +1,3 @@
-/**
- * routes/project.routes.js
- * Endpoint definitions for the projects resource.
- * Mounted in app.js under the /api/projects base path.
- */
 import express from 'express';
 import {
   getAllProjects,
@@ -11,16 +6,18 @@ import {
   updateProject,
   deleteProject
 } from '../controllers/project.controller.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// Reads are public; writes need a valid token.
 router.route('/')
-  .get(getAllProjects)   // GET    api/projects
-  .post(addProject);     // POST   api/projects
+  .get(getAllProjects)
+  .post(requireAuth, addProject);
 
 router.route('/:id')
-  .get(getProjectById)   // GET    api/projects/:id
-  .put(updateProject)    // PUT    api/projects/:id
-  .delete(deleteProject); // DELETE api/projects/:id
+  .get(getProjectById)
+  .put(requireAuth, updateProject)
+  .delete(requireAuth, deleteProject);
 
 export default router;

@@ -1,11 +1,5 @@
-/**
- * controllers/reference.controller.js
- * CRUD operations for the references collection.
- * Every handler forwards unexpected errors to the global error handler via next().
- */
 import Reference from '../models/Reference.js';
 
-/** GET /api/references — retrieve every reference. */
 export const getAllReferences = async (req, res, next) => {
   try {
     const references = await Reference.find();
@@ -19,7 +13,6 @@ export const getAllReferences = async (req, res, next) => {
   }
 };
 
-/** GET /api/references/:id — retrieve a single reference by its identifier. */
 export const getReferenceById = async (req, res, next) => {
   try {
     const reference = await Reference.findById(req.params.id);
@@ -38,7 +31,6 @@ export const getReferenceById = async (req, res, next) => {
   }
 };
 
-/** POST /api/references — create a new reference. */
 export const addReference = async (req, res, next) => {
   try {
     const reference = await Reference.create(req.body);
@@ -52,7 +44,6 @@ export const addReference = async (req, res, next) => {
   }
 };
 
-/** PUT /api/references/:id — update an existing reference. */
 export const updateReference = async (req, res, next) => {
   try {
     const updatedReference = await Reference.findByIdAndUpdate(
@@ -71,7 +62,6 @@ export const updateReference = async (req, res, next) => {
   }
 };
 
-/** DELETE /api/references/:id — remove an existing reference. */
 export const deleteReference = async (req, res, next) => {
   try {
     const deletedReference = await Reference.findByIdAndDelete(req.params.id);
